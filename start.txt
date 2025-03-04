@@ -1,0 +1,16 @@
+go to the blood type folder 
+then 
+open cmd in that folder
+
+first activate virtual env
+called 
+`conda activate env`
+then cd application
+then 
+type
+
+`uvicorn app.main:app --reload`
+application will start , do that you can perform the prediction to get the results
+the analysis and deelopment is tthe notebooks folder 
+
+--sign off

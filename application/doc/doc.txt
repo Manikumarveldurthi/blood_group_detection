@@ -1,0 +1,96 @@
+Project Title: Blood Group Classification Using Convolutional Neural Networks
+
+1. Introduction
+
+This project addresses the problem of automatically classifying blood groups from images using a deep learning approach. The motivation behind this work is to provide a rapid, accurate, and automated alternative to conventional serological testing methods, which can be time-consuming and resource-intensive. The objective is to develop a robust Convolutional Neural Network (CNN) that not only achieves high accuracy but also provides transparency into its decision-making process via explainability techniques.
+
+2. Data Acquisition and Preprocessing
+
+Dataset Overview:
+The dataset is composed of images grouped into eight blood classes: A+, A-, AB+, AB-, B+, B-, O+, and O-. The images are organized in separate directories corresponding to each blood group, which allows for straightforward labeling using the folder structure.
+
+Visualization of Class Distribution:
+A bar plot is used to display the distribution of images across the different blood groups. This visualization helps in identifying class imbalances that may need to be addressed during training.
+
+Image Transformation:
+Each image is resized to 64×64 pixels to standardize the input dimensions. The images are then converted into tensor format and normalized using a mean of 0.5 and a standard deviation of 0.5 for all three RGB channels. This normalization ensures that the pixel values are scaled appropriately for the network.
+
+Data Splitting:
+The dataset is divided into three subsets:
+
+Training Set (70%): Used for fitting the CNN.
+Validation Set (20%): Utilized for tuning hyperparameters and monitoring overfitting.
+Test Set (10%): Held out for the final evaluation of the model’s performance.
+3. Model Architecture
+
+Convolutional Layers:
+The network starts with a series of five convolutional blocks. Each block consists of:
+
+A convolution layer with a 3×3 kernel and 'same' padding, which ensures that the spatial dimensions are preserved before pooling.
+A ReLU activation function that introduces non-linearity.
+A max pooling layer with a 2×2 window to reduce the spatial dimensions and extract dominant features.
+A dropout layer, with dropout rates increasing from 0.3 to 0.5, to mitigate overfitting by randomly deactivating a portion of the neurons during training.
+Fully Connected Layers:
+After the convolutional feature extraction, the output is flattened and passed through two dense layers:
+
+The first dense layer contains 1024 neurons with ReLU activation followed by a dropout layer (rate of 0.5) to further combat overfitting.
+The final dense layer outputs a vector whose length corresponds to the number of classes (8 blood groups). Although the softmax activation is typically applied for probabilistic outputs, during training the cross-entropy loss function in PyTorch implicitly handles the softmax operation.
+4. Training Process
+
+Loss Function:
+Cross-entropy loss is used with label smoothing (set to 0.1) to prevent the model from becoming overly confident in its predictions, which helps in improving generalization.
+
+Optimization:
+The Adam optimizer is chosen for its efficiency and adaptability, with a learning rate of 0.001. A weight decay of 1e-4 is also applied as an L2 regularization method to reduce overfitting.
+
+Learning Rate Scheduling:
+A ReduceLROnPlateau scheduler monitors the validation loss and reduces the learning rate by a factor of 0.5 when the loss plateaus for two consecutive epochs. This dynamic adjustment facilitates smoother convergence.
+
+Early Stopping:
+To avoid overfitting, training is halted if the validation loss does not improve for five consecutive epochs. This early stopping strategy helps in selecting the best model and saves computational resources.
+
+5. Model Evaluation
+
+Test Accuracy:
+After training, the model is evaluated on the test set. The final test accuracy achieved is approximately 93.69%, which indicates a high level of predictive performance.
+
+Classification Report:
+A detailed classification report is generated to assess the performance on each blood group. The report includes metrics such as precision, recall, and F1-score. For instance:
+
+A+: Precision 0.97, Recall 0.94, F1-score 0.96
+A-: Precision 0.99, Recall 0.84, F1-score 0.91
+AB+: Precision 0.97, Recall 0.98, F1-score 0.97
+AB-: Precision 0.81, Recall 0.96, F1-score 0.88
+B+: Precision 0.97, Recall 0.93, F1-score 0.95
+B-: Precision 0.98, Recall 0.96, F1-score 0.97
+O+: Precision 0.96, Recall 0.95, F1-score 0.96
+O-: Precision 0.86, Recall 0.96, F1-score 0.91
+Overall, the weighted averages are around 0.94, confirming the robustness of the model across all classes.
+
+6. Explainable AI (XAI)
+
+To build trust and interpret the model’s decisions, several explainability techniques are employed:
+
+Grad-CAM (Gradient-weighted Class Activation Mapping):
+Grad-CAM is used to generate heatmaps that highlight the regions in an image most influential in the model’s prediction. By overlaying these heatmaps on the original image, clinicians or end-users can visually inspect which areas the model considers important.
+
+SHAP (SHapley Additive Explanations):
+SHAP values are calculated to quantify the contribution of each pixel or region to the final prediction. This method provides a numerical explanation of feature importance and supports visualizations that illustrate the pixel-level impact on the output.
+
+LIME (Local Interpretable Model-agnostic Explanations):
+LIME perturbs the input image and fits an interpretable model locally around the prediction. This method explains the prediction by identifying which parts of the image were most critical in the decision process, presenting a simplified visual explanation.
+
+The combination of these techniques offers a multi-faceted view of the model's decision-making process, ensuring that the predictions are both accurate and interpretable.
+
+7. Inference on Unseen Data
+
+For end-to-end inference, a single image is processed through the trained model to predict its blood group. The steps involved are:
+
+Loading and Preprocessing: The unseen image is loaded, converted to RGB, resized, transformed into a tensor, and normalized.
+Prediction: The model computes the output probabilities, and the class with the highest probability is selected as the predicted blood group.
+Explainability Visualizations:
+Grad-CAM produces a heatmap that is overlaid on the image to show the important regions.
+SHAP and LIME are applied to provide additional insights into the pixel-level contributions and local decision boundaries, respectively.
+8. Conclusion
+
+The project successfully implements a CNN for blood group classification with a test accuracy of 93.69%. The detailed classification report confirms that the model performs well across various blood groups, with high precision, recall, and F1-scores. Furthermore, the integration of advanced XAI techniques (Grad-CAM, SHAP, and LIME) ensures that the model’s predictions are transparent and interpretable. This comprehensive, end-to-end approach—from data preprocessing to model training, evaluation, and explainability—demonstrates a robust solution for automated blood group classification, providing both high performance and deep insights into the decision-making process.

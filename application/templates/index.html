@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodType Analysis System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-tint"></i>
+            <span>BloodType Analysis</span>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#predict"><i class="fas fa-microscope"></i> Predict</a>
+        </div>
+    </nav>
+
+    <div class="hero-section" id="home">
+        <h1>Advanced Blood Type Analysis System</h1>
+        <p>Using AI-powered fingerprint analysis for accurate blood type prediction</p>
+    </div>
+
+    <div class="about-section" id="about">
+        <div class="container">
+            <h2>About Our System</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI Technology</h3>
+                    <p>Advanced deep learning models trained on extensive fingerprint datasets</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>High Accuracy</h3>
+                    <p>Precise blood type predictions with confidence scoring</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>XAI Visualization</h3>
+                    <p>Explainable AI showing prediction reasoning</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="prediction-section" id="predict">
+        <div class="container">
+            <h2>Blood Type Analysis</h2>
+            <div class="section-description">
+                <p>Our advanced AI system analyzes fingerprint patterns to predict blood types with high accuracy. The system uses deep learning and explainable AI to provide transparent results.</p>
+            </div>
+            
+            <div class="analysis-layout">
+                <!-- Left Column: Form and Info -->
+                <div class="input-column">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <i class="fas fa-user-plus"></i>
+                            <h3>Patient Information</h3>
+                        </div>
+                        <form id="predictionForm" class="prediction-form">
+                            <div class="input-group">
+                                <input type="text" id="name" name="name" required>
+                                <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <input type="number" id="age" name="age" required>
+                                    <label for="age"><i class="fas fa-calendar"></i> Age</label>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" id="gender" name="gender" required>
+                                    <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <textarea id="address" name="address" required></textarea>
+                                <label for="address"><i class="fas fa-home"></i> Address</label>
+                            </div>
+
+                            <div class="file-upload-container">
+                                <h4><i class="fas fa-fingerprint"></i> Fingerprint Upload</h4>
+                                <p class="upload-instructions">Please upload a clear image of the fingerprint. Supported formats: JPG, PNG</p>
+                                <div class="file-upload">
+                                    <input type="file" id="fingerprint" name="fingerprint" accept="image/*" required>
+                                    <label for="fingerprint">
+                                        <i class="fas fa-upload"></i>
+                                        <span>Choose File</span>
+                                    </label>
+                                </div>
+                                <div id="preview-container" class="preview-container hidden">
+                                    <img id="image-preview" src="" alt="Fingerprint Preview">
+                                    <button type="button" id="remove-image" class="remove-btn">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <span>
+                                    <i class="fas fa-dna"></i> 
+                                    Analyze Blood Type
+                                </span>
+                                <div class="loader"></div>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="analysis-info">
+                        <div class="info-card">
+                            <h3><i class="fas fa-chart-pie"></i> Analysis Process</h3>
+                            <ul class="process-steps">
+                                <li><i class="fas fa-1"></i> Image Processing</li>
+                                <li><i class="fas fa-2"></i> Pattern Recognition</li>
+                                <li><i class="fas fa-3"></i> Deep Learning Analysis</li>
+                                <li><i class="fas fa-4"></i> Result Verification</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-info-circle"></i> Important Notes</h3>
+                            <ul class="notes-list">
+                                <li>Ensure fingerprint image is clear and well-lit</li>
+                                <li>Optimal image resolution: 500x500 pixels</li>
+                                <li>Clean, dust-free finger surface recommended</li>
+                                <li>Results typically available in 30 seconds</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Results -->
+                <div class="results-column">
+                    <div id="initial-message" class="initial-message">
+                        <i class="fas fa-fingerprint"></i>
+                        <h3>Ready for Analysis</h3>
+                        <p>Please fill in the patient information and upload a fingerprint to begin the analysis.</p>
+                    </div>
+                    
+                    <div id="report" class="report hidden">
+                        <!-- Report content will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 BloodType Analysis System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+</html> 
